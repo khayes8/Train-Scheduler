@@ -11,11 +11,12 @@ firebase.initializeApp(config);
 
 var database = firebase.database();
 
-var trainTime = "";
+var trainName = "";
 var destination = "";
 var frequency = 0;
 var nextArrival = "";
 var minutesAway = 0;
+var firstTrain = 0;
 
 // function storeInput (){
 
@@ -24,21 +25,22 @@ var minutesAway = 0;
 $(".submit").on("click", function(){
 event.preventDefault();
 // console.log("hi");
-trainTime = $("#trainInput").val().trim();
+trainName = $("#trainInput").val().trim();
 destination = $("#destinationInput").val().trim();
-frequency = $("#frequencyInput").val().trim();
-nextArrival = $("#nextarrivalInput").val().trim();
-minutesAway = $("#minutesawayInput").val().trim();
+frequency = $("#frequencyInput").val();
+firstTrain = $("#firstTrain").val().trim();
+// nextArrival = $("#nextarrivalInput").val().trim();
+// minutesAway = $("#minutesawayInput").val();
 
 
-console.log(trainTime);
+console.log(trainName);
 console.log(destination);
 console.log(frequency);
 console.log(nextArrival);
 console.log(minutesAway);
 
 database.ref().push({
-traintime: trainTime,
+trainName: trainName,
 destination: destination,
 frequency: frequency,
 nextarrival: nextArrival,
@@ -55,7 +57,7 @@ database.ref().on("child_added", function(childSnapshot){
 // Log everything that’s coming out of snapshot
 
 
-console.log(childSnapshot.val().traintime);
+console.log(childSnapshot.val().trainName);
 console.log(childSnapshot.val().destination);
 console.log(childSnapshot.val().frequency);
 console.log(childSnapshot.val().nextarrival);
@@ -74,14 +76,14 @@ database.ref().on("child_added", function(childSnapshot) {
 console.log(childSnapshot.val());
 
 // Store everything into a variable.
-var tTime = childSnapshot.val().traintime;
+var tName = childSnapshot.val().trainName;
 var tDst = childSnapshot.val().destination;
 var tFrq = childSnapshot.val().frequency;
 var tRt = childSnapshot.val().nextarrival;
 var tmin = childSnapshot.val().minutesaway;
 
 // Employee Info
-console.log(tTime);
+console.log(tName);
 console.log(tDst);
 console.log(tFrq);
 console.log(tRt);
@@ -96,6 +98,30 @@ console.log(tRt);
 // var empBilled = empMonths * empRate;
 // console.log(empBilled);
 // Add each train's data into the table
-$("tbody").append("<tr> <td>" + tTime + "</td> <td>" + tDst + "</td> <td>" +
-tFrq + "</td> <td>" + tRt + "</td> <td>" + tmin + "</td> </tr>");
+    
+var firstTime = "3:00";
+// // First Time (pushed back 1 year to make sure it comes before current time)
+var firstTimeConverted = moment(firstTime, "hh:mm").subtract(1, "years");
+console.log(firstTimeConverted);
+// Current Time
+var currentTime = moment();
+console.log("CURRENT TIME: " + moment(currentTime).format("hh:mm"));
+// Difference between the times
+var diffTime = moment().diff(moment(firstTimeConverted), "minutes");
+console.log("DIFFERENCE IN TIME: " + diffTime);
+// Time apart (remainder)
+var tRemainder = diffTime % tFrq;
+console.log(tRemainder);
+// Minute Until Train
+var tMinutesTillTrain = tFrq - tRemainder;
+console.log("MINUTES TILL TRAIN: " + tMinutesTillTrain);
+// Next Train
+var nextTrain = moment().add(tMinutesTillTrain, "minutes");
+console.log("ARRIVAL TIME: " + moment(nextTrain).format("hh:mm"));
+
+$("tbody").append("<tr> <td>" + tName + "</td> <td>" + tDst + "</td> <td>" +
+tFrq + " mins" + "</td> <td>" + moment(nextTrain).format("hh:mm a") + "</td> <td>" + tMinutesTillTrain + "</td> </tr>");
 });
+
+
+
