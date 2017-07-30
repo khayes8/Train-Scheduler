@@ -1,3 +1,10 @@
+.jumbotron{
+background-color:#ffffff;
+}
+.col-md-9{
+margin-left: 153px;
+}
+
 label{
 margin-left: 71px;
 }
@@ -6,19 +13,12 @@ margin-left: 71px;
 }
 .btn-default{
 margin-left: 71px;
-}
-.btn-default{
 margin-bottom: 70px;
 }
-/*
-h4{
-margin-left: 71px;
-padding:0px;
-}*/
 .panel-heading, h4 {
-
 font-size: 22px;
 text-align: left;
 padding: 10px;
 margin: 71px;
 background-color: #6699FF ;
+}
