@@ -10,7 +10,6 @@ var config = {
 firebase.initializeApp(config);
 
 var database = firebase.database();
-
 var trainName = "";
 var destination = "";
 var frequency = 0;
@@ -18,19 +17,14 @@ var nextArrival = "";
 var minutesAway = 0;
 var firstTrain = 0;
 
-// function storeInput (){
 
-// });
 
 $(".submit").on("click", function(){
 event.preventDefault();
-// console.log("hi");
 trainName = $("#trainInput").val().trim();
 destination = $("#destinationInput").val().trim();
 frequency = $("#frequencyInput").val();
 firstTrain = $("#firstTrain").val().trim();
-// nextArrival = $("#nextarrivalInput").val().trim();
-// minutesAway = $("#minutesawayInput").val();
 
 
 console.log(trainName);
@@ -63,12 +57,6 @@ console.log(childSnapshot.val().frequency);
 console.log(childSnapshot.val().nextarrival);
 console.log(childSnapshot.val().minutesaway);
 
-// $(“#full-member-list”).append(“<div class=‘well’><span id= ‘name’>”
-
-// childSnapshot.val().name +
-// “</span><span id=‘email’> ” +  childSnapshot.val().email +
-// “</span><span id=‘age’> ” + childSnapshot.val().age +
-// “</span><span id=‘comment’> ” + childSnapshot.val().comment +“</span></div>“;
 });
 
 // 3. Create Firebase event for adding employee to the database and a row in the html when a user adds an entry
@@ -87,17 +75,6 @@ console.log(tName);
 console.log(tDst);
 console.log(tFrq);
 console.log(tRt);
-
-// Prettify the employee start
-// var empStartPretty = moment.unix(empStart).format("MM/DD/YY");
-// // Calculate the months worked using hardcore math
-// // To calculate the months worked
-// var empMonths = moment().diff(moment.unix(empStart, "X"), "months");
-// console.log(empMonths);
-// // Calculate the total billed rate
-// var empBilled = empMonths * empRate;
-// console.log(empBilled);
-// Add each train's data into the table
     
 var firstTime = "3:00";
 // // First Time (pushed back 1 year to make sure it comes before current time)

@@ -10,11 +10,13 @@ margin-left: 71px;
 .btn-default{
 margin-bottom: 70px;
 }
+/*
 h4{
 margin-left: 71px;
 padding:0px;
-}
-.panel-heading {
+}*/
+.panel-heading, h4 {
+
 font-size: 22px;
 text-align: left;
 padding: 10px;
